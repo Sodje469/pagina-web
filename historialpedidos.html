@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Historial de Pedidos</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: #f6f6f6;
+      margin: 0;
+      padding: 2rem;
+      display: flex;
+      justify-content: center;
+    }
+
+    .container {
+      background: #fff7ed;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      width: 100%;
+      max-width: 800px;
+    }
+
+    h2 {
+      color: #b45309;
+      text-align: center;
+      font-family: 'Georgia', serif;
+      margin-bottom: 1.5rem;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1rem;
+    }
+
+    th, td {
+      padding: 0.8rem;
+      border: 1px solid #e2e2e2;
+      text-align: left;
+    }
+
+    th {
+      background: #d97706;
+      color: white;
+    }
+
+    td.price {
+      font-weight: bold;
+      color: #6b4f1d;
+    }
+
+    .pedido-fecha {
+      font-size: 0.9rem;
+      color: #444;
+      margin-bottom: 0.5rem;
+      margin-top: 1.5rem;
+    }
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Historial de Pedidos de Usuario</h2>
+    <div id="historial"></div>
+  </div>
+
+  <script>
+    // Simular usuario activo
+    const usuarioActivo = { email: "ana@example.com", nombre: "Ana", apellidos: "García" };
+
+    // Pedidos simulados
+    const pedidos = [
+      {
+        usuario: "ana@example.com",
+        fecha: "2025-10-01",
+        productos: [
+          { nombre: "Hummus Tradicional", precio: 12.99 },
+          { nombre: "Shawarma de Pollo", precio: 18.75 }
+        ]
+      },
+      {
+        usuario: "ana@example.com",
+        fecha: "2025-10-03",
+        productos: [
+          { nombre: "Falafel (6 piezas)", precio: 15.50 },
+          { nombre: "Baklava", precio: 8.50 },
+          { nombre: "Té Árabe", precio: 5.75 }
+        ]
+      },
+      {
+        usuario: "ana@example.com",
+        fecha: "2025-10-05",
+        productos: [
+          { nombre: "Mansaf", precio: 28.75 },
+          { nombre: "Tabule", precio: 14.25 }
+        ]
+      }
+    ];
+
+    const historialDiv = document.getElementById("historial");
+
+    // Filtrar pedidos del usuario activo
+    const pedidosUsuario = pedidos.filter(p => p.usuario === usuarioActivo.email);
+
+    // Generar HTML dinámico
+    pedidosUsuario.forEach(pedido => {
+      const pedidoDiv = document.createElement("div");
+      pedidoDiv.classList.add("pedido");
+
+      pedidoDiv.innerHTML = `
+        <p class="pedido-fecha">Fecha: ${pedido.fecha}</p>
+        <table>
+          <thead>
+            <tr>
+              <th>Producto</th>
+              <th>Precio</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${pedido.productos.map(prod => `
+              <tr>
+                <td>${prod.nombre}</td>
+                <td class="price">$${prod.precio.toFixed(2)}</td>
+              </tr>
+            `).join('')}
+          </tbody>
+        </table>
+      `;
+
+      historialDiv.appendChild(pedidoDiv);
+    });
+  </script>
+</body>
+</html>

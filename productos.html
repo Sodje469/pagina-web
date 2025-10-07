@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sabores Árabes - Productos</title>
+  <style>
+    /* === RESET Y BASE === */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: Arial, sans-serif;
+      background: #f8f8f8;
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+
+    /* === NAVBAR === */
+    .navbar {
+      background: #d97706;
+      color: white;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 100;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-bottom: 0.5rem;
+    }
+    .navbar h1 {
+      font-family: 'Georgia', serif;
+      font-size: 2rem;
+      color: white;
+      margin: 1rem 0 0.7rem 0;
+      letter-spacing: 2px;
+    }
+    .navbar nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      margin-bottom: 1rem;
+      justify-content: center;
+    }
+    .navbar nav a {
+      color: white;
+      font-weight: bold;
+      text-decoration: none;
+      font-size: 1rem;
+      transition: color 0.2s;
+    }
+    .navbar nav a:hover {
+      color: #fbbf24;
+    }
+
+    /* === CONTENEDOR GENERAL === */
+    .container {
+      display: flex;
+      align-items: flex-start;
+      gap: 2rem;
+      max-width: 1200px;
+      margin: 140px auto 3rem auto;
+      padding: 1.5rem;
+    }
+
+    /* === FILTROS === */
+    .filters {
+      position: sticky;
+      top: 120px;
+      height: fit-content;
+      min-width: 230px;
+      background: #fff7ed;
+      border-radius: 12px;
+      padding: 1.5rem 1rem;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+      font-size: 1rem;
+    }
+    .filters h4 {
+      color: #b45309;
+      margin-bottom: 1rem;
+      font-size: 1.1rem;
+    }
+    .filters strong {
+      color: #d97706;
+    }
+    .filters hr {
+      margin: 1rem 0;
+      border: none;
+      border-top: 1px solid #e2e2e2;
+    }
+    .filters label {
+      margin-left: 0.3rem;
+    }
+    .filters input[type="checkbox"] {
+      margin-right: 0.5rem;
+      accent-color: #d97706;
+    }
+
+    /* === PRODUCTOS === */
+    .products {
+      flex: 1;
+      min-width: 0;
+    }
+    .products-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+    }
+    .products-header div {
+      font-size: 1.2rem;
+      color: #b45309;
+    }
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 2rem;
+      justify-items: center;
+    }
+
+    /* === TARJETAS DE PRODUCTO === */
+    .card {
+      width: 100%;
+      max-width: 280px;
+      background: #fff7ed;
+      border-radius: 12px;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transition: transform 0.25s, box-shadow 0.25s;
+    }
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
+    }
+    .card .body {
+      padding: 1rem;
+      width: 100%;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .card h4 {
+      color: #b45309;
+      font-size: 1.15rem;
+      font-family: 'Georgia', serif;
+      margin: 0.5rem 0;
+    }
+    .card p {
+      color: #6b4f1d;
+      font-size: 0.95rem;
+      margin-bottom: 0.8rem;
+    }
+    .card .meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+    }
+    .btn {
+      background: #d97706;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      padding: 0.5rem 1rem;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .btn:hover {
+      background: #b45309;
+    }
+
+    /* === CARRITO === */
+    .carrito {
+      position: fixed;
+      right: 10px;
+      top: 100px;
+      width: 250px;
+      background: #f8f8f8;
+      border: 1px solid #ccc;
+      padding: 10px;
+      border-radius: 8px;
+      max-height: 70vh;
+      overflow-y: auto;
+    }
+    .carrito h3 {
+      text-align: center;
+      margin-bottom: 10px;
+    }
+    .carrito ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .carrito li {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 5px;
+      border-bottom: 1px solid #ddd;
+      padding-bottom: 5px;
+    }
+    .carrito button {
+      background: red;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    /* === BOTÓN FLOTANTE CARRITO === */
+    #carritoFijo {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 100;
+    }
+    #carritoFijo button {
+      background-color: #ff6600;
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    #carritoFijo button:hover {
+      background-color: #e65c00;
+    }
+
+    footer {
+      background: #d97706;
+      color: white;
+      text-align: center;
+      padding: 2rem 1rem;
+      margin-top: 2rem;
+      box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.05);
+    }
+
+    @media (max-width: 1100px) {
+      .container { flex-direction: column; }
+      .filters { width: 100%; position: relative; top: 0; }
+    }
+    @media (max-width: 700px) {
+      .products-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <header class="navbar">
+    <h1>Sabores Árabes</h1>
+    <nav>
+      <a href="index.html">Inicio</a>
+      <a href="#nosotros">Nosotros</a>
+      <a href="productos.html">Productos</a>
+      <a href="#menu">Menú</a>
+      <a href="#reservas">Reservas</a>
+      <a href="#contacto">Contacto</a>
+      <a href="perfil.html">Mi Perfil</a>
+      <a href="login.html" id="cerrarSesion">Cerrar sesión</a>
+      <a href="adminusuarios.html">Administrar</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <aside class="filters">
+      <h4>Filtros</h4>
+      <div>
+        <strong>Categorías</strong>
+        <div><input type="checkbox" id="cat1"> <label for="cat1">Platos Principales</label></div>
+        <div><input type="checkbox" id="cat2"> <label for="cat2">Aperitivos</label></div>
+        <div><input type="checkbox" id="cat3"> <label for="cat3">Postres</label></div>
+        <div><input type="checkbox" id="cat4"> <label for="cat4">Bebidas</label></div>
+      </div>
+    </aside>
+
+    <section class="products">
+      <div class="products-header">
+        <div>Mostrando productos</div>
+      </div>
+      <div class="products-grid" id="productsGrid"></div>
+    </section>
+
+    <aside class="carrito" id="carrito">
+      <h3>Carrito</h3>
+      <ul id="carritoLista"></ul>
+      <p>Total: $<span id="carritoTotal">0.00</span></p>
+    </aside>
+
+    <div id="carritoFijo">
+      <button id="verCarrito">🛒 Ver Carrito (<span id="cantidadCarrito">0</span>)</button>
+    </div>
+  </main>
+
+  <footer>
+    <h3>© 2025 Sabores Árabes. Todos los derechos reservados.</h3>
+  </footer>
+
+  <script>
+    const productos = [
+      { nombre: 'Hummus Tradicional', descripcion: 'Cremoso hummus con tahini y aceite de oliva', precio: 12.99, categoria: 'Aperitivos' },
+      { nombre: 'Falafel (6 piezas)', descripcion: 'Croquetas de garbanzos fritas con especias', precio: 15.50, categoria: 'Aperitivos' },
+      { nombre: 'Shawarma de Pollo', descripcion: 'Pollo marinado en pan pita con vegetales', precio: 18.75, categoria: 'Platos Principales' },
+      { nombre: 'Tabule', descripcion: 'Ensalada fresca de perejil, tomate y bulgur', precio: 14.25, categoria: 'Aperitivos' },
+      { nombre: 'Kebab de Cordero', descripcion: 'Brochetas de cordero con especias árabes', precio: 24.90, categoria: 'Platos Principales' },
+      { nombre: 'Baba Ganoush', descripcion: 'Puré de berenjenas ahumadas con tahini', precio: 13.50, categoria: 'Aperitivos' },
+      { nombre: 'Mansaf', descripcion: 'Cordero en salsa de yogurt con arroz', precio: 28.75, categoria: 'Platos Principales' },
+      { nombre: 'Kibbeh (4 piezas)', descripcion: 'Croquetas de bulgur rellenas de carne', precio: 16.25, categoria: 'Aperitivos' },
+      { nombre: 'Baklava', descripcion: 'Postre de hojaldre con nueces y miel', precio: 8.50, categoria: 'Postres' },
+      { nombre: 'Té Árabe', descripcion: 'Té negro con cardamomo y canela', precio: 5.75, categoria: 'Bebidas' },
+    ];
+
+    let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+
+    function actualizarCarrito() {
+      const lista = document.getElementById('carritoLista');
+      const totalSpan = document.getElementById('carritoTotal');
+      lista.innerHTML = '';
+      let total = 0;
+      carrito.forEach((prod, index) => {
+        const li = document.createElement('li');
+        li.textContent = `${prod.nombre} - $${prod.precio.toFixed(2)}`;
+        const btnEliminar = document.createElement('button');
+        btnEliminar.textContent = 'X';
+        btnEliminar.onclick = () => {
+          carrito.splice(index, 1);
+          localStorage.setItem('carrito', JSON.stringify(carrito));
+          actualizarCarrito();
+          actualizarCantidadCarrito();
+        };
+        li.appendChild(btnEliminar);
+        lista.appendChild(li);
+        total += prod.precio;
+      });
+      totalSpan.textContent = total.toFixed(2);
+    }
+
+    function renderProductos() {
+      const grid = document.getElementById('productsGrid');
+      grid.innerHTML = '';
+      const categorias = [];
+      if (document.getElementById('cat1').checked) categorias.push('Platos Principales');
+      if (document.getElementById('cat2').checked) categorias.push('Aperitivos');
+      if (document.getElementById('cat3').checked) categorias.push('Postres');
+      if (document.getElementById('cat4').checked) categorias.push('Bebidas');
+      let filtrados = productos;
+      if (categorias.length > 0) {
+        filtrados = productos.filter(p => categorias.includes(p.categoria));
+      }
+      filtrados.forEach(prod => {
+        const card = document.createElement('div');
+        card.className = 'card';
+        card.innerHTML = `
+          <div class="body">
+            <h4>${prod.nombre}</h4>
+            <p>${prod.descripcion}</p>
+            <div class="meta">
+              <strong>$${prod.precio.toFixed(2)}</strong>
+              <button class="btn">+ Agregar</button>
+            </div>
+          </div>
+        `;
+        card.querySelector('.btn').addEventListener('click', () => {
+          carrito.push(prod);
+          localStorage.setItem('carrito', JSON.stringify(carrito));
+          actualizarCarrito();
+          actualizarCantidadCarrito();
+        });
+        grid.appendChild(card);
+      });
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      renderProductos();
+      actualizarCarrito();
+      actualizarCantidadCarrito();
+    });
+
+    ['cat1','cat2','cat3','cat4'].forEach(id => {
+      document.getElementById(id).addEventListener('change', renderProductos);
+    });
+
+    function actualizarCantidadCarrito() {
+      document.getElementById('cantidadCarrito').textContent = carrito.length;
+    }
+
+    document.getElementById('verCarrito').addEventListener('click', () => {
+      window.location.href = 'generarPedido.html';
+    });
+  </script>
+</body>
+</html>

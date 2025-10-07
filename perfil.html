@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mi Perfil</title>
+  <link rel="stylesheet" href="style.css">
+  <!-- Los estilos están ahora en style.css para facilitar la edición y la responsividad. -->
+</head>
+<body>
+  <!-- Navbar -->
+  <header class="navbar">
+    <h1>Sabores Árabes</h1>
+    <nav>
+      <a href="perfil.html">Mi perfil</a>
+      <a href="login.html" id="cerrarSesion">Cerrar sesión</a>
+    </nav>
+  </header>
+
+  <!-- Contenido -->
+  <main class="contenido">
+    <h2>Panel de Usuario</h2>
+    <div class="perfil-info">
+      <h3>Información personal</h3>
+      <p><strong>Nombre:</strong> <span id="nombre"></span></p>
+      <p><strong>Apellidos:</strong> <span id="apellidos"></span></p>
+      <p><strong>Email:</strong> <span id="email"></span></p>
+      <p><strong>Último acceso:</strong> <span id="ultimoAcceso"></span></p>
+    </div>
+  </main>
+
+  <script>
+    function cerrarSesion(motivo) {
+      alert(motivo || "Sesión cerrada correctamente");
+      localStorage.removeItem("usuarioActivo");
+      localStorage.removeItem("ultimoMovimiento");
+      localStorage.removeItem("ultimoAcceso");
+      window.location.href = "login.html";
+    }
+
+    // Recuperar usuario activo
+    const usuarioActivo = JSON.parse(localStorage.getItem("usuarioActivo"));
+    const ultimoMovimiento = localStorage.getItem("ultimoMovimiento");
+
+    if (!usuarioActivo) {
+      cerrarSesion("Debes iniciar sesión");
+    } else {
+      // Validar expiración de 30 minutos
+      const ahora = Date.now();
+      if (ultimoMovimiento && (ahora - parseInt(ultimoMovimiento)) > 1800000) {
+        cerrarSesion("Sesión expirada por inactividad");
+      } else {
+        // Mostrar datos en la interfaz
+        document.getElementById("nombre").textContent = usuarioActivo.nombre;
+        document.getElementById("apellidos").textContent = usuarioActivo.apellidos;
+        document.getElementById("email").textContent = usuarioActivo.email;
+        document.getElementById("ultimoAcceso").textContent = localStorage.getItem("ultimoAcceso");
+        localStorage.setItem("ultimoMovimiento", ahora);
+      }
+    }
+
+    // Botón cerrar sesión
+    document.getElementById("cerrarSesion").addEventListener("click", function(e) {
+      e.preventDefault();
+      cerrarSesion();
+    });
+  </script>
+</body>
+</html>
