@@ -158,7 +158,7 @@
       { cliente: 'Camila Díaz', ubicacion: 'Peñalolén', total: 27.80, estado: 'En Preparación' },
     ];
 
-    // === Mostrar resumen por estado ===
+    // === resumen por estado ===
     const estados = {
       'Pendiente': document.querySelector('#pendientes ul'),
       'En Preparación': document.querySelector('#preparacion ul'),
@@ -172,7 +172,7 @@
       if (estados[o.estado]) estados[o.estado].appendChild(li);
     });
 
-    // === Tabla detallada ===
+    // === Tabla 
     const tbody = document.querySelector('#tablaOrdenes tbody');
     ordenes.forEach(o => {
       const tr = document.createElement('tr');
@@ -187,3 +187,4 @@
   </script>
 </body>
 </html>
+
