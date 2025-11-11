@@ -5,182 +5,32 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Métricas de Ventas</title>
   <link rel="stylesheet" href="style.css">
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f8f8f8;
-      margin: 0;
-      padding: 20px;
-      display: flex;
-      justify-content: center;
-    }
-
-    .container {
-      width: 100%;
-      max-width: 1000px;
-      background: #fff;
-      padding: 30px 20px;
-      border-radius: 10px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-
-    h2, h3 {
-      text-align: center;
-      margin-bottom: 20px;
-    }
-
-    .content {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      width: 100%;
-      gap: 20px;
-    }
-
-    .grafico-container, .productos-container {
-      flex: 1 1 400px; /* ocupa mínimo 400px o máximo disponible */
-      background: #fafafa;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-    }
-
-    canvas {
-      width: 100% !important;
-      height: 400px !important;
-    }
-
-    ul {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-    }
-
-    li {
-      padding: 8px 12px;
-      border-bottom: 1px solid #ddd;
-      background: #f9f9f9;
-      border-radius: 5px;
-      margin-bottom: 8px;
-      font-size: 16px;
-    }
-
-    button {
-      background:#28a745;
-      color:#fff;
-      padding:10px 20px;
-      border:none;
-      border-radius:5px;
-      cursor:pointer;
-      font-size:16px;
-      margin-top: 20px;
-    }
-
-    button:hover {
-      background:#218838;
-    }
-
-    @media(max-width: 768px){
-      .content {
-        flex-direction: column;
-        align-items: center;
-      }
-      .grafico-container, .productos-container {
-        flex: 1 1 100%;
-      }
-      canvas {
-        height: 300px !important;
-      }
-    }
-  </style>
 </head>
 <body>
-  <div class="container">
+
+  <main class="contenedor-principal">
     <h2>Métricas de Ventas</h2>
-    <div class="content">
+
+    <div class="metricas-content">
+      
       <div class="grafico-container">
         <h3>Ventas por pedido</h3>
         <canvas id="graficoVentas"></canvas>
       </div>
 
+      
       <div class="productos-container">
         <h3>Productos más vendidos</h3>
         <ul id="productosMasVendidos"></ul>
       </div>
     </div>
+
     <a href="reportedeventas.html">
-      <button id="volverReporte">Volver al Reporte de Ventas</button>
-    
-  </div>
+      <button id="volverReporte" class="btn">Volver al Reporte de Ventas</button>
+    </a>
+  </main>
 
-  <script>
-    // Datos de ejemplo
-    const pedidos = [
-      { numero: 101, productos: ['Hummus', 'Falafel'], cantidades: [2, 1], total: 40.99 },
-      { numero: 102, productos: ['Shawarma', 'Té Árabe'], cantidades: [1, 2], total: 30.50 },
-      { numero: 103, productos: ['Kebab', 'Baklava'], cantidades: [2, 3], total: 70.25 },
-      { numero: 104, productos: ['Mansaf'], cantidades: [1], total: 28.75 },
-      { numero: 105, productos: ['Tabule', 'Baba Ganoush'], cantidades: [1, 2], total: 42.25 }
-    ];
-
-    // ====== Gráfico de ventas ======
-    const ctx = document.getElementById('graficoVentas').getContext('2d');
-    const labels = pedidos.map(p => `Venta #${p.numero}`);
-    const data = pedidos.map(p => p.total);
-
-    new Chart(ctx, {
-      type: 'bar',
-      data: {
-        labels: labels,
-        datasets: [{
-          label: 'Total por venta ($)',
-          data: data,
-          backgroundColor: '#ff6600',
-          borderRadius: 5
-        }]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        layout: {
-          padding: { top: 10, bottom: 10 }
-        },
-        scales: {
-          y: {
-            beginAtZero: true,
-            ticks: {
-              stepSize: 10
-            }
-          }
-        }
-      }
-    });
-
-    // ====== Productos más vendidos ======
-    const prodCount = {};
-    pedidos.forEach(p => {
-      p.productos.forEach((prod, idx) => {
-        const cantidad = p.cantidades[idx];
-        prodCount[prod] = (prodCount[prod] || 0) + cantidad;
-      });
-    });
-
-    const prodList = Object.entries(prodCount).sort((a,b) => b[1]-a[1]);
-    const ul = document.getElementById('productosMasVendidos');
-    prodList.forEach(([nombre, cant]) => {
-      const li = document.createElement('li');
-      li.textContent = `${nombre}: ${cant} unidades`;
-      ul.appendChild(li);
-    });
-
-    // Botón volver
-    document.getElementById('volverReporte').addEventListener('click', () => {
-      window.location.href = 'reporteVentas.html';
-    });
-  </script>
+  <script src="script.js" defer></script>
 </body>
 </html>
+
