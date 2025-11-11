@@ -4,108 +4,43 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Reporte de Ventas</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f8f8f8;
-      margin: 0;
-      padding: 20px;
-    }
-    h2 {
-      text-align: center;
-      margin-bottom: 20px;
-    }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-bottom: 20px;
-      background: #fff;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    }
-    th, td {
-      padding: 10px;
-      border: 1px solid #ddd;
-      text-align: left;
-    }
-    th {
-      background: #ff6600;
-      color: #fff;
-    }
-    tfoot td {
-      font-weight: bold;
-      background: #f0f0f0;
-    }
-    .container {
-      max-width: 900px;
-      margin: auto;
-    }
-  </style>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="container">
+
+  <main class="contenedor-principal">
     <h2>Reporte de Ventas</h2>
-    <table id="reporteVentas">
-      <thead>
-        <tr>
-          <th>N° Venta</th>
-          <th>Productos</th>
-          <th>Cantidad</th>
-          <th>Total</th>
-        </tr>
-      </thead>
-      <tbody>
-        
-      </tbody>
-      <tfoot>
-        <tr>
-          <td colspan="3">Ingresos Totales</td>
-          <td id="ingresosTotales"></td>
-        </tr>
-      </tfoot>
-    </table>
-  </div>
-  <button id="irMetricas" style="background:#28a745;color:#fff;padding:10px 20px;border:none;border-radius:5px;cursor:pointer;">
-  Ir a Métricas
-  </button>
 
-  <script>
-  document.getElementById('irMetricas').addEventListener('click', () => {
-    window.location.href = 'metricas.html'; 
-  });
-  </script>
+    <div class="tabla-container">
+      <table id="reporteVentas">
+        <thead>
+          <tr>
+            <th>N° Venta</th>
+            <th>Productos</th>
+            <th>Cantidad</th>
+            <th>Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          
+        </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="3">Ingresos Totales</td>
+            <td id="ingresosTotales"></td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
 
+    
+  <a href="metricas.html">
+    <button id="irMetricas" class="btn">Ir a Métricas</button>
+  </a>
 
-  <script>
-    // Datos de ejemplo
-    const pedidos = [
-      { numero: 101, productos: ['Hummus', 'Falafel'], cantidades: [2, 1], total: 40.99 },
-      { numero: 102, productos: ['Shawarma', 'Té Árabe'], cantidades: [1, 2], total: 30.50 },
-      { numero: 103, productos: ['Kebab', 'Baklava'], cantidades: [2, 3], total: 70.25 },
-      { numero: 104, productos: ['Mansaf'], cantidades: [1], total: 28.75 },
-      { numero: 105, productos: ['Tabule', 'Baba Ganoush'], cantidades: [1, 2], total: 42.25 }
-    ];
+  </main>
 
-    const tbody = document.querySelector('#reporteVentas tbody');
-    let ingresosTotales = 0;
-
-    pedidos.forEach(pedido => {
-      const tr = document.createElement('tr');
-
-      const productosStr = pedido.productos.map((p, i) => `${p} ($${pedido.total})`).join(', ');
-
-      tr.innerHTML = `
-        <td>${pedido.numero}</td>
-        <td>${pedido.productos.join(', ')}</td>
-        <td>${pedido.cantidades.join(', ')}</td>
-        <td>$${pedido.total.toFixed(2)}</td>
-      `;
-      tbody.appendChild(tr);
-
-      ingresosTotales += pedido.total;
-    });
-
-    document.getElementById('ingresosTotales').textContent = `$${ingresosTotales.toFixed(2)}`;
-  </script>
+  <script src="script.js" defer></script>
 </body>
 </html>
 
