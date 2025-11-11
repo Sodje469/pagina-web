@@ -7,20 +7,28 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="contenedor">
-    <h2>Crear Cuenta</h2>
-    <form id="formRegistro">
-      <label for="email">Email</label>
-      <input type="email" id="email" required>
+  <main class="contenedor-principal">
+    <section class="contenedor-registro">
+      <h1>Crear Cuenta</h1>
+      <form id="formRegistro" autocomplete="on">
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" placeholder="tu@email.com" required>
+        </div>
 
-      <label for="password">Contraseña</label>
-      <input type="password" id="password" required>
+        <div class="form-group">
+          <label for="password">Contraseña</label>
+          <input type="password" id="password" name="password" placeholder="Contraseña" required>
+        </div>
 
-      <button type="submit">Registrarse</button>
-      <p id="mensaje" class="mensaje"></p>
-    </form>
-    <p>¿Ya tienes cuenta? <a href="login.html">Inicia sesión aquí</a></p>
-  </div>
+        <button type="submit" class="btn">Registrarse</button>
+        <p id="mensaje" class="mensaje"></p>
+      </form>
+
+      <p>¿Ya tienes cuenta? <a href="login.html">Inicia sesión aquí</a></p>
+    </section>
+  </main>
   <script src="script.js"></script>
 </body>
 </html>
+
