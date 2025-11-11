@@ -7,68 +7,63 @@
   <link rel="stylesheet" href="style.css">
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
-
 <body>
-  <!-- NAVBAR -->
   <header class="navbar">
     <h1>Sabores Árabes</h1>
-    <nav>
-      <a href="#inicio">Inicio</a>
-      <a href="#nosotros">Nosotros</a>
+    
+    <nav class="nav-menu">
+      <button class="nav-close" id="navClose">&times;</button>
+      
+      <a href="index.html">Inicio</a>
+      <a href="index.html#nosotros">Nosotros</a>
       <a href="productos.html">Productos</a>
-      <a href="#menu">Menú</a>
-      <a href="#reservas">Reservas</a>
-      <a href="#contacto">Contacto</a>
+      <a href="index.html#menu">Menú</a>
+      <a href="index.html#reservas">Reservas</a>
+      <a href="index.html#contacto">Contacto</a>
       <a href="perfil.html">Mi Perfil</a>
       <a href="login.html" id="cerrarSesion">Cerrar sesión</a>
       <a href="adminusuarios.html">Administrar</a>
       <a href="historialpedidos.html">Historial</a>
     </nav>
+    
+    <button class="nav-toggle" id="navToggle">☰</button>
   </header>
 
-  
-  <section class="hero" id="inicio">
-    <div class="hero-content">
-      <h2>¡Bienvenido a Sabores Árabes!</h2>
-      <p>Vive la experiencia de la auténtica cocina árabe: shawarma, falafel, hummus y mucho más.<br>
-      Ambiente familiar, ingredientes frescos y tradición en cada plato.</p>
-    </div>
-  </section>
+  <main>
+    <section class="hero" id="inicio">
+      <div class="hero-content">
+        <h2>¡Bienvenido a Sabores Árabes!</h2>
+        <p>Vive la experiencia de la auténtica cocina árabe: shawarma, falafel, hummus y mucho más. Ambiente familiar, ingredientes frescos y tradición en cada plato.</p>
+      </div>
+    </section>
 
-  <!-- SECCIÓN NOSOTROS -->
-  <section class="section" id="nosotros">
-    <h3>Sobre Nosotros</h3>
-    <p>En <b>Sabores Árabes</b> llevamos la pasión por la gastronomía de oriente a tu mesa. Nuestro restaurante familiar
-    fusiona recetas tradicionales con un ambiente cálido y acogedor. ¡Ven a descubrir el verdadero sabor árabe en cada bocado!</p>
-  </section>
+    <section class="section" id="nosotros">
+      <h3>Sobre Nosotros</h3>
+      <p>En <strong>Sabores Árabes</strong> llevamos la pasión por la gastronomía de oriente a tu mesa. Nuestro restaurante familiar fusiona recetas tradicionales con un ambiente cálido y acogedor. ¡Ven a descubrir el verdadero sabor árabe en cada bocado!</p>
+    </section>
 
-  <!-- SECCIÓN MENÚ -->
-  <section class="section" id="menu">
-    <h3>Nuestro Menú</h3>
-    <p>Explora una variedad de platos árabes elaborados con ingredientes frescos y recetas tradicionales.</p>
-  </section>
+    <section class="section" id="menu">
+      <h3>Nuestro Menú</h3>
+      <p>Explora una variedad de platos árabes elaborados con ingredientes frescos y recetas tradicionales.</p>
+    </section>
 
-  <!-- SECCIÓN RESERVAS -->
-  <section class="section" id="reservas">
-    <h3>Reservas</h3>
-    <p>Haz tu reserva con anticipación y disfruta de una experiencia inolvidable en Sabores Árabes.</p>
-  </section>
+    <section class="section" id="reservas">
+      <h3>Reservas</h3>
+      <p>Haz tu reserva con anticipación y disfruta de una experiencia inolvidable en Sabores Árabes.</p>
+    </section>
 
-  <!-- SECCIÓN CONTACTO -->
-  <section class="section" id="contacto">
-    <h3>Contacto</h3>
-    <p>📍 Dirección: Av. Principal 123, Santiago, Chile<br>
-       📞 Teléfono: +56 9 1234 5678<br>
-       ✉️ Email: contacto@saboresarabes.cl</p>
-  </section>
+    <section class="section" id="contacto">
+      <h3>Contacto</h3>
+      <p>📍 Dirección: Av. Principal 123, Santiago, Chile<br>
+         📞 Teléfono: +56 9 1234 5678<br>
+         ✉️ Email: contacto@saboresarabes.cl</p>
+    </section>
+  </main>
 
-  <!-- FOOTER -->
   <footer>
     <p>© 2025 Sabores Árabes. Todos los derechos reservados.</p>
   </footer>
 
-  
   <script src="script.js"></script>
 </body>
 </html>
-
