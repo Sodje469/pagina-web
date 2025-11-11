@@ -1,130 +1,32 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Generar Pedido</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f8f8f8;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      margin: 0;
-    }
-
-    .container {
-      background: #fff;
-      padding: 20px 30px;
-      border-radius: 10px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-      width: 90%;
-      max-width: 500px;
-      text-align: center;
-    }
-
-    h2 { margin-bottom: 20px; }
-
-    .producto {
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 10px;
-      padding: 8px 10px;
-      background: #f0f0f0;
-      border-radius: 5px;
-    }
-
-    .total {
-      font-weight: bold;
-      margin-top: 20px;
-    }
-
-    button {
-      background: #ff6600;
-      color: #fff;
-      border: none;
-      padding: 10px 20px;
-      border-radius: 5px;
-      cursor: pointer;
-      margin-top: 20px;
-      font-size: 16px;
-    }
-
-    button:disabled {
-      background: #aaa;
-      cursor: not-allowed;
-    }
-
-    .mensaje {
-      margin-top: 20px;
-      font-size: 18px;
-      font-weight: bold;
-    }
-  </style>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <div class="container">
+  <main class="contenedor-principal">
     <h2>Carrito de Compras</h2>
-    <div id="productosCarrito"></div>
+
+    <div id="productosCarrito" class="productos-carrito"></div>
+
     <div class="total" id="totalCarrito"></div>
-    <button id="finalizarPago">Finalizar Pago</button>
-    <button id="anularPago" style="display:none;">Anular Compra</button>
+
+    <div class="botones-pago">
+      <button id="finalizarPago" class="btn">Finalizar Pago</button>
+      <button id="anularPago" class="btn" style="display:none;">Anular Compra</button>
+    </div>
+
     <div class="mensaje" id="mensajePago"></div>
+  </main>
+
+  <div id="carritoFijo">
+    <button id="verCarrito">🛒 Ver Carrito (<span id="cantidadCarrito">0</span>)</button>
   </div>
 
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const productosCarrito = JSON.parse(localStorage.getItem('carrito')) || [];
-      const contenedor = document.getElementById('productosCarrito');
-      const totalEl = document.getElementById('totalCarrito');
-      const mensaje = document.getElementById('mensajePago');
-      const boton = document.getElementById('finalizarPago');
-      const botonAnular = document.getElementById('anularPago');
-
-      let total = 0;
-      let pagoTimeout;
-
-      // Mostrar productos en el carrito
-      if(productosCarrito.length === 0){
-        contenedor.innerHTML = "<p>No hay productos en el carrito.</p>";
-        boton.disabled = true;
-      } else {
-        productosCarrito.forEach(p => {
-          const div = document.createElement('div');
-          div.className = 'producto';
-          div.textContent = `${p.nombre} - $${p.precio.toFixed(2)}`;
-          contenedor.appendChild(div);
-          total += p.precio;
-        });
-        totalEl.textContent = `Total: $${total.toFixed(2)}`;
-      }
-
-      // Finalizar pago
-      boton.addEventListener('click', () => {
-        mensaje.textContent = "Procesando pago...";
-        boton.disabled = true;
-        botonAnular.style.display = 'inline-block';
-
-        // Simular tiempo de procesamiento
-        pagoTimeout = setTimeout(() => {
-          mensaje.textContent = "¡Pago exitoso!";
-          botonAnular.style.display = 'none';
-          localStorage.removeItem('carrito'); // Limpiar carrito
-        }, 3000);
-      });
-
-      // Evento para anular
-      botonAnular.addEventListener('click', () => {
-        clearTimeout(pagoTimeout); // Cancelar proceso
-        mensaje.textContent = "Compra cancelada.";
-        boton.disabled = false;
-        botonAnular.style.display = 'none';
-      });
-    });
-  </script>
-
+  <script src="script.js" defer></script>
 </body>
 </html>
